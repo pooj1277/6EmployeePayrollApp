@@ -18,10 +18,13 @@ import com.bridgelabz.EmployeePayrollApp.exception.EmployeePayrollExceptionHandl
 import com.bridgelabz.EmployeePayrollApp.model.EmployeePayrollData;
 import com.bridgelabz.EmployeePayrollApp.service.IEmployeePayrollService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/employeepayrollservice")
+ @Slf4j
 public class EmployeePayrollController {
-	Logger logger = LoggerFactory.getLogger(EmployeePayrollController.class);
+	Logger logger = LoggerFactory.getLogger(EmployeePayrollExceptionHandler.class);
 	@Autowired
 	private IEmployeePayrollService employeePayrollService;
 
@@ -43,12 +46,7 @@ public class EmployeePayrollController {
 		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
 	}
 
-	@PostMapping("/addperson")
-	public EmployeePayrollData addPerson(@RequestBody EmployeePayrollDTO employeePayrollDTO) {
-		return employeePayrollService.addPerson(employeePayrollDTO);
-	}
-	
-	//curl -X POST -H "Content-Type: application/json" -d '{"name": "Lisa","salary":2000}' "http://localhost:8080/employeepayrollservice/create" -w "\n"
+	//curl -X POST -H "Content-Type: application/json" -d '{"name": "pooja","salary":2000}' "http://localhost:8888/employeepayrollservice/create" -w "\n"
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDTO> createEmployeePayrollData(@Valid @RequestBody EmployeePayrollDTO employeePayrollDTO) {
 		logger.debug("Employee payroll dto "+employeePayrollDTO.toString());
@@ -59,7 +57,7 @@ public class EmployeePayrollController {
 	}
 	
 
-	// curl -X PUT -H "Content-Type: application/json" -d '{"name": "bhushan","salary": 21000}' "http://localhost:8080/employeepayrollservice/update/1" -w "\n"
+	// curl -X PUT -H "Content-Type: application/json" -d '{"name": "abhi","salary": 21000}' "http://localhost:8888/employeepayrollservice/update/1" -w "\n"
 	@PutMapping("/update/{empId}")
 	public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@PathVariable("empId") int empId,
 			@RequestBody EmployeePayrollDTO employeePayrollDTO) {
@@ -69,7 +67,7 @@ public class EmployeePayrollController {
 		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
 	}
 
-	//curl -X DELETE -H "Content-Type: application/json" localhost:8080/employeepayrollservice/delete/1 -w "\n"
+	//curl -X DELETE -H "Content-Type: application/json" localhost:8888/employeepayrollservice/delete/1 -w "\n"
 	@DeleteMapping("/delete/{empId}")
 	public ResponseEntity<ResponseDTO> deleteEmployeePayrollData(@PathVariable("empId") int empId) {
 		employeePayrollService.deleteEmployeePayrollData(empId);
@@ -77,12 +75,5 @@ public class EmployeePayrollController {
 		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
 	}
 	
-//	localhost:8080/employeepayrollservice/department/HR
-//	@GetMapping("/department/{department}")
-//	public ResponseEntity<ResponseDTO> getEmployeesByDepartment(@PathVariable("department") String department) {
-//		List<EmployeePayrollData> employeesByDepartment = employeePayrollService.getEmployeesByDepartment(department);
-//		ResponseDTO responseDTO = new ResponseDTO("Get call for the department success ", employeesByDepartment);
-//		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
-//	}
-
+	
 }

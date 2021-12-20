@@ -19,11 +19,6 @@ public class EmployeePayrollData {
 	@Column(name = "salary")
 	private long salary;
 
-//	@ElementCollection
-//	@CollectionTable(name = "employee_department", joinColumns = @JoinColumn(name = "id"))
-//	@Column(name = "department")
-//	private List<String> departments;
-
 	public EmployeePayrollData() {
 
 	}
